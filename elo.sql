@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Gegenereerd op: 08 sep 2021 om 08:31
+-- Gegenereerd op: 08 sep 2021 om 08:38
 -- Serverversie: 5.7.31
 -- PHP-versie: 7.3.21
 
@@ -58,6 +58,7 @@ DROP TABLE IF EXISTS `huiswerk`;
 CREATE TABLE IF NOT EXISTS `huiswerk` (
   `HuiswerkId` int(11) NOT NULL AUTO_INCREMENT,
   `HuiswerkBeschrijving` varchar(45) NOT NULL,
+  `HuiswerkDatum` date DEFAULT NULL,
   `VakId` int(11) NOT NULL,
   `KlasId` int(11) NOT NULL,
   PRIMARY KEY (`HuiswerkId`),
@@ -70,8 +71,8 @@ CREATE TABLE IF NOT EXISTS `huiswerk` (
 -- Gegevens worden geëxporteerd voor tabel `huiswerk`
 --
 
-INSERT INTO `huiswerk` (`HuiswerkId`, `HuiswerkBeschrijving`, `VakId`, `KlasId`) VALUES
-(1, 'Maak de rekenoefeningen', 2, 1);
+INSERT INTO `huiswerk` (`HuiswerkId`, `HuiswerkBeschrijving`, `HuiswerkDatum`, `VakId`, `KlasId`) VALUES
+(1, 'Maak de rekenoefeningen', '2021-09-08', 2, 1);
 
 -- --------------------------------------------------------
 
