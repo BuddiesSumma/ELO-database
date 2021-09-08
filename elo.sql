@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Gegenereerd op: 08 sep 2021 om 11:30
+-- Gegenereerd op: 08 sep 2021 om 14:55
 -- Serverversie: 5.7.31
 -- PHP-versie: 7.3.21
 
@@ -20,8 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `elo`
 --
-CREATE DATABASE IF NOT EXISTS `elo` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `elo`;
 
 -- --------------------------------------------------------
 
@@ -65,14 +63,16 @@ CREATE TABLE IF NOT EXISTS `huiswerk` (
   UNIQUE KEY `HuiswerkId_UNIQUE` (`HuiswerkId`),
   KEY `fk_huiswerk_vak1_idx` (`VakId`),
   KEY `fk_huiswerk_klas1_idx` (`KlasId`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Gegevens worden geëxporteerd voor tabel `huiswerk`
 --
 
 INSERT INTO `huiswerk` (`HuiswerkId`, `HuiswerkBeschrijving`, `HuiswerkDatum`, `VakId`, `KlasId`) VALUES
-(1, 'Maak de rekenoefeningen', '2021-09-08', 1, 1);
+(1, 'Maak de rekenoefeningen', '2021-11-08', 1, 1),
+(2, 'Maak de oefening', '2021-09-08', 2, 1),
+(3, 'Maak een website', '2021-09-23', 3, 1);
 
 -- --------------------------------------------------------
 
@@ -87,13 +87,14 @@ CREATE TABLE IF NOT EXISTS `klas` (
   PRIMARY KEY (`KlasId`),
   UNIQUE KEY `naam_UNIQUE` (`KlasNaam`),
   UNIQUE KEY `KlasId_UNIQUE` (`KlasId`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Gegevens worden geëxporteerd voor tabel `klas`
 --
 
 INSERT INTO `klas` (`KlasId`, `KlasNaam`) VALUES
+(2, 'SD2B'),
 (1, 'SD2C');
 
 -- --------------------------------------------------------
@@ -119,14 +120,15 @@ CREATE TABLE IF NOT EXISTS `student` (
   UNIQUE KEY `id_UNIQUE` (`StudentId`),
   UNIQUE KEY `Email` (`Email`),
   KEY `fk_student_klas_idx` (`KlasId`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Gegevens worden geëxporteerd voor tabel `student`
 --
 
 INSERT INTO `student` (`StudentId`, `Voornaam`, `Achternaam`, `Geboortedatum`, `Telefoonnummer`, `Email`, `Adres`, `Postcode`, `Woonplaats`, `Wachtwoord`, `KlasId`) VALUES
-(1, 'Voornaam', 'Achternaam', '2021-09-08', '0612345678', 'email@domeinnaam.nl', 'straatnaam 1', '1111AB', 'Eindhoven', 'password', 1);
+(1, 'Voornaam', 'Achternaam', '2021-09-08', '0612345678', 'email@domeinnaam.nl', 'Straatnaam 1', '1111AB', 'Eindhoven', 'password', 1),
+(2, 'Testnaam', 'Testachternaam', '2001-09-07', '0612345678', 'email@domein.nl', 'Straatnaam 1', '1111AB', 'Eindhoven', 'wachtwoord', 2);
 
 -- --------------------------------------------------------
 
@@ -141,13 +143,15 @@ CREATE TABLE IF NOT EXISTS `vak` (
   PRIMARY KEY (`VakId`),
   UNIQUE KEY `vakken_UNIQUE` (`VakNaam`),
   UNIQUE KEY `VakId_UNIQUE` (`VakId`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Gegevens worden geëxporteerd voor tabel `vak`
 --
 
 INSERT INTO `vak` (`VakId`, `VakNaam`) VALUES
+(2, 'Desktop Development'),
+(3, 'Laravel'),
 (1, 'Rekenen');
 
 --
