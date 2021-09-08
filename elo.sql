@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Gegenereerd op: 08 sep 2021 om 08:38
+-- Gegenereerd op: 08 sep 2021 om 11:30
 -- Serverversie: 5.7.31
 -- PHP-versie: 7.3.21
 
@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `cijfer` (
 --
 
 INSERT INTO `cijfer` (`CijferId`, `Cijfer`, `StudentId`, `VakId`) VALUES
-(1, 10, 1, 2);
+(1, 10, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -72,7 +72,7 @@ CREATE TABLE IF NOT EXISTS `huiswerk` (
 --
 
 INSERT INTO `huiswerk` (`HuiswerkId`, `HuiswerkBeschrijving`, `HuiswerkDatum`, `VakId`, `KlasId`) VALUES
-(1, 'Maak de rekenoefeningen', '2021-09-08', 2, 1);
+(1, 'Maak de rekenoefeningen', '2021-09-08', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -117,6 +117,7 @@ CREATE TABLE IF NOT EXISTS `student` (
   `KlasId` int(11) NOT NULL,
   PRIMARY KEY (`StudentId`),
   UNIQUE KEY `id_UNIQUE` (`StudentId`),
+  UNIQUE KEY `Email` (`Email`),
   KEY `fk_student_klas_idx` (`KlasId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
@@ -140,15 +141,14 @@ CREATE TABLE IF NOT EXISTS `vak` (
   PRIMARY KEY (`VakId`),
   UNIQUE KEY `vakken_UNIQUE` (`VakNaam`),
   UNIQUE KEY `VakId_UNIQUE` (`VakId`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
 -- Gegevens worden geëxporteerd voor tabel `vak`
 --
 
 INSERT INTO `vak` (`VakId`, `VakNaam`) VALUES
-(1, ''),
-(2, 'Rekenen');
+(1, 'Rekenen');
 
 --
 -- Beperkingen voor geëxporteerde tabellen
