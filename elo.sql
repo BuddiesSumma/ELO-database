@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Gegenereerd op: 08 sep 2021 om 14:55
+-- Gegenereerd op: 09 sep 2021 om 22:41
 -- Serverversie: 5.7.31
 -- PHP-versie: 7.3.21
 
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `elo`
 --
+CREATE DATABASE IF NOT EXISTS `elo` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `elo`;
 
 -- --------------------------------------------------------
 
@@ -30,21 +32,25 @@ SET time_zone = "+00:00";
 DROP TABLE IF EXISTS `cijfer`;
 CREATE TABLE IF NOT EXISTS `cijfer` (
   `CijferId` int(11) NOT NULL AUTO_INCREMENT,
-  `Cijfer` int(11) NOT NULL,
+  `Cijfer` varchar(2) NOT NULL,
   `StudentId` int(11) NOT NULL,
   `VakId` int(11) NOT NULL,
   PRIMARY KEY (`CijferId`),
   UNIQUE KEY `CijferId_UNIQUE` (`CijferId`),
   KEY `fk_cijfer_student1_idx` (`StudentId`),
   KEY `fk_cijfer_vak1_idx` (`VakId`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
 -- Gegevens worden geëxporteerd voor tabel `cijfer`
 --
 
 INSERT INTO `cijfer` (`CijferId`, `Cijfer`, `StudentId`, `VakId`) VALUES
-(1, 10, 1, 1);
+(1, 'G', 1, 1),
+(2, 'G', 1, 2),
+(3, 'V', 1, 3),
+(4, 'G', 2, 1),
+(5, 'O', 2, 3);
 
 -- --------------------------------------------------------
 
@@ -63,7 +69,7 @@ CREATE TABLE IF NOT EXISTS `huiswerk` (
   UNIQUE KEY `HuiswerkId_UNIQUE` (`HuiswerkId`),
   KEY `fk_huiswerk_vak1_idx` (`VakId`),
   KEY `fk_huiswerk_klas1_idx` (`KlasId`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
 -- Gegevens worden geëxporteerd voor tabel `huiswerk`
@@ -72,7 +78,8 @@ CREATE TABLE IF NOT EXISTS `huiswerk` (
 INSERT INTO `huiswerk` (`HuiswerkId`, `HuiswerkBeschrijving`, `HuiswerkDatum`, `VakId`, `KlasId`) VALUES
 (1, 'Maak de rekenoefeningen', '2021-11-08', 1, 1),
 (2, 'Maak de oefening', '2021-09-08', 2, 1),
-(3, 'Maak een website', '2021-09-23', 3, 1);
+(3, 'Maak een website', '2021-09-23', 3, 1),
+(4, 'Maak een website', '2021-09-17', 3, 2);
 
 -- --------------------------------------------------------
 
@@ -87,13 +94,14 @@ CREATE TABLE IF NOT EXISTS `klas` (
   PRIMARY KEY (`KlasId`),
   UNIQUE KEY `naam_UNIQUE` (`KlasNaam`),
   UNIQUE KEY `KlasId_UNIQUE` (`KlasId`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Gegevens worden geëxporteerd voor tabel `klas`
 --
 
 INSERT INTO `klas` (`KlasId`, `KlasNaam`) VALUES
+(3, 'SD2A'),
 (2, 'SD2B'),
 (1, 'SD2C');
 
