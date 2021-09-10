@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Gegenereerd op: 09 sep 2021 om 22:41
+-- Gegenereerd op: 10 sep 2021 om 09:21
 -- Serverversie: 5.7.31
 -- PHP-versie: 7.3.21
 
@@ -34,11 +34,11 @@ CREATE TABLE IF NOT EXISTS `cijfer` (
   `CijferId` int(11) NOT NULL AUTO_INCREMENT,
   `Cijfer` int(11) NOT NULL,
   `StudentId` int(11) NOT NULL,
-  `HuiswerkId` int(11),
+  `HuiswerkId` int(11) NOT NULL,
   PRIMARY KEY (`CijferId`),
   UNIQUE KEY `CijferId_UNIQUE` (`CijferId`),
-  KEY `fk_cijfer_student1_idx` (`StudentId`),
-  KEY `fk_cijfer_huiswerk_idx` (`HuiswerkId`)
+  KEY `fk_cijfer_huiswerk1_idx` (`HuiswerkId`),
+  KEY `fk_cijfer_student1_idx` (`StudentId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
@@ -46,11 +46,11 @@ CREATE TABLE IF NOT EXISTS `cijfer` (
 --
 
 INSERT INTO `cijfer` (`CijferId`, `Cijfer`, `StudentId`, `HuiswerkId`) VALUES
-(1, null, 1, 1),
-(2, null, 1, 2),
-(3, '7', 1, 3),
-(4, null, 2, 1),
-(5, '7,8', 2, 3);
+(1, 0, 1, 1),
+(2, 0, 1, 2),
+(3, 7, 1, 3),
+(4, 0, 2, 1),
+(5, 7, 2, 4);
 
 -- --------------------------------------------------------
 
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `huiswerk` (
   `HuiswerkId` int(11) NOT NULL AUTO_INCREMENT,
   `HuiswerkBeschrijving` varchar(45) NOT NULL,
   `HuiswerkDatum` date DEFAULT NULL,
-  `HuiswerktIsToets` boolean not null ,
+  `HuiswerktIsToets` tinyint(1) NOT NULL,
   `VakId` int(11) NOT NULL,
   `KlasId` int(11) NOT NULL,
   PRIMARY KEY (`HuiswerkId`),
@@ -77,10 +77,10 @@ CREATE TABLE IF NOT EXISTS `huiswerk` (
 --
 
 INSERT INTO `huiswerk` (`HuiswerkId`, `HuiswerkBeschrijving`, `HuiswerkDatum`, `HuiswerktIsToets`, `VakId`, `KlasId`) VALUES
-(1, 'Maak de rekenoefeningen', '2021-11-08', false, 1, 1),
-(2, 'Maak de oefening', '2021-09-08', false	, 2, 1),
-(3, 'Maak een website', '2021-09-09', true, 3, 1),
-(4, 'Maak een website', '2021-09-17', true, 3, 2);
+(1, 'Maak de rekenoefeningen', '2021-11-08', 0, 1, 1),
+(2, 'Maak de oefening', '2021-09-08', 0, 2, 1),
+(3, 'Maak een website', '2021-09-09', 1, 3, 1),
+(4, 'Maak een website', '2021-09-17', 1, 3, 2);
 
 -- --------------------------------------------------------
 
@@ -95,14 +95,13 @@ CREATE TABLE IF NOT EXISTS `klas` (
   PRIMARY KEY (`KlasId`),
   UNIQUE KEY `naam_UNIQUE` (`KlasNaam`),
   UNIQUE KEY `KlasId_UNIQUE` (`KlasId`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Gegevens worden geëxporteerd voor tabel `klas`
 --
 
 INSERT INTO `klas` (`KlasId`, `KlasNaam`) VALUES
-(3, 'SD2A'),
 (2, 'SD2B'),
 (1, 'SD2C');
 
@@ -137,7 +136,7 @@ CREATE TABLE IF NOT EXISTS `student` (
 
 INSERT INTO `student` (`StudentId`, `Voornaam`, `Achternaam`, `Geboortedatum`, `Telefoonnummer`, `Email`, `Adres`, `Postcode`, `Woonplaats`, `Wachtwoord`, `KlasId`) VALUES
 (1, 'Voornaam', 'Achternaam', '2021-09-08', '0612345678', 'email@domeinnaam.nl', 'Straatnaam 1', '1111AB', 'Eindhoven', 'password', 1),
-(2, 'Testnaam', 'Testachternaam', '2001-09-07', '0612345678', 'email@domein.nl', 'Straatnaam 1', '1111AB', 'Eindhoven', 'wachtwoord', 2);
+(2, 'Teststudent', 'Achternaam', '2021-09-01', '0612345678', 'email@domein.nl', 'Straatnaam 1', '1111AB', 'Eindhoven', 'wachtwoord', 2);
 
 -- --------------------------------------------------------
 
@@ -171,8 +170,8 @@ INSERT INTO `vak` (`VakId`, `VakNaam`) VALUES
 -- Beperkingen voor tabel `cijfer`
 --
 ALTER TABLE `cijfer`
-  ADD CONSTRAINT `fk_cijfer_student1` FOREIGN KEY (`StudentId`) REFERENCES `student` (`StudentId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_cijfer_vak1` FOREIGN KEY (`VakId`) REFERENCES `vak` (`VakId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_cijfer_huiswerk1` FOREIGN KEY (`HuiswerkId`) REFERENCES `huiswerk` (`HuiswerkId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_cijfer_student1` FOREIGN KEY (`StudentId`) REFERENCES `student` (`StudentId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Beperkingen voor tabel `huiswerk`
