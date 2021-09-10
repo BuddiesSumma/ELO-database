@@ -32,25 +32,25 @@ USE `elo`;
 DROP TABLE IF EXISTS `cijfer`;
 CREATE TABLE IF NOT EXISTS `cijfer` (
   `CijferId` int(11) NOT NULL AUTO_INCREMENT,
-  `Cijfer` varchar(2) NOT NULL,
+  `Cijfer` int(11) NOT NULL,
   `StudentId` int(11) NOT NULL,
-  `VakId` int(11) NOT NULL,
+  `HuiswerkId` int(11),
   PRIMARY KEY (`CijferId`),
   UNIQUE KEY `CijferId_UNIQUE` (`CijferId`),
   KEY `fk_cijfer_student1_idx` (`StudentId`),
-  KEY `fk_cijfer_vak1_idx` (`VakId`)
+  KEY `fk_cijfer_huiswerk_idx` (`HuiswerkId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
 -- Gegevens worden geëxporteerd voor tabel `cijfer`
 --
 
-INSERT INTO `cijfer` (`CijferId`, `Cijfer`, `StudentId`, `VakId`) VALUES
-(1, 'G', 1, 1),
-(2, 'G', 1, 2),
-(3, 'V', 1, 3),
-(4, 'G', 2, 1),
-(5, 'O', 2, 3);
+INSERT INTO `cijfer` (`CijferId`, `Cijfer`, `StudentId`, `HuiswerkId`) VALUES
+(1, null, 1, 1),
+(2, null, 1, 2),
+(3, '7', 1, 3),
+(4, null, 2, 1),
+(5, '7,8', 2, 3);
 
 -- --------------------------------------------------------
 
@@ -63,6 +63,7 @@ CREATE TABLE IF NOT EXISTS `huiswerk` (
   `HuiswerkId` int(11) NOT NULL AUTO_INCREMENT,
   `HuiswerkBeschrijving` varchar(45) NOT NULL,
   `HuiswerkDatum` date DEFAULT NULL,
+  `HuiswerktIsToets` boolean not null ,
   `VakId` int(11) NOT NULL,
   `KlasId` int(11) NOT NULL,
   PRIMARY KEY (`HuiswerkId`),
@@ -75,11 +76,11 @@ CREATE TABLE IF NOT EXISTS `huiswerk` (
 -- Gegevens worden geëxporteerd voor tabel `huiswerk`
 --
 
-INSERT INTO `huiswerk` (`HuiswerkId`, `HuiswerkBeschrijving`, `HuiswerkDatum`, `VakId`, `KlasId`) VALUES
-(1, 'Maak de rekenoefeningen', '2021-11-08', 1, 1),
-(2, 'Maak de oefening', '2021-09-08', 2, 1),
-(3, 'Maak een website', '2021-09-23', 3, 1),
-(4, 'Maak een website', '2021-09-17', 3, 2);
+INSERT INTO `huiswerk` (`HuiswerkId`, `HuiswerkBeschrijving`, `HuiswerkDatum`, `HuiswerktIsToets`, `VakId`, `KlasId`) VALUES
+(1, 'Maak de rekenoefeningen', '2021-11-08', false, 1, 1),
+(2, 'Maak de oefening', '2021-09-08', false	, 2, 1),
+(3, 'Maak een website', '2021-09-09', true, 3, 1),
+(4, 'Maak een website', '2021-09-17', true, 3, 2);
 
 -- --------------------------------------------------------
 
